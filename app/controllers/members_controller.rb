@@ -1,31 +1,37 @@
 class MembersController < ApplicationController
   before_action :set_member, only: [:show, :edit, :update, :destroy]
 
-  # GET /members
-  # GET /members.json
   def index
     @members = Member.all
   end
 
-  # GET /members/1
-  # GET /members/1.json
   def show
   end
 
-  # GET /members/new
   def new
     @member = Member.new
   end
 
-  # GET /members/1/edit
   def edit
   end
 
-  # POST /members
-  # POST /members.json
+  def headers(url)
+
+    doc = Nokogiri::HTML(RestClient.get(url))
+    header_tags = (1..3).map { |num| "h#{num}" }
+    headers = []
+    @member.headings = doc.css(*header_tags).map do |node|
+        headers << node.name
+        node.text
+    end
+  end
+
   def create
     @member = Member.new(member_params)
-
+    client = Bitly::API::Client.new(token: "796016fee064d7b96f06223589e913d28815c4e1")
+    bitlink = client.shorten(long_url: "https://" + @member.website)
+    @member.short = bitlink.link
+    headers(@member.short)
     respond_to do |format|
       if @member.save
         format.html { redirect_to @member, notice: 'Member was successfully created.' }
@@ -37,8 +43,6 @@ class MembersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /members/1
-  # PATCH/PUT /members/1.json
   def update
     respond_to do |format|
       if @member.update(member_params)
@@ -51,8 +55,7 @@ class MembersController < ApplicationController
     end
   end
 
-  # DELETE /members/1
-  # DELETE /members/1.json
+
   def destroy
     @member.destroy
     respond_to do |format|
@@ -62,12 +65,10 @@ class MembersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_member
       @member = Member.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def member_params
       params.require(:member).permit(:name, :website)
     end

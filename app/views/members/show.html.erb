@@ -1,5 +1,12 @@
 <p id="notice"><%= notice %></p>
-
+<div>
+<h1 style="text-justify:tibetan; color:red;">
+  <%= link_to 'ScrapBook', members_path %>
+</h1>
+</div>
+<div style = "text-align:right">
+<%= link_to 'Edit User', edit_member_path(@member) %>
+</div>
 <p>
   <strong>Name:</strong>
   <%= @member.name %>
@@ -10,5 +17,17 @@
   <%= @member.website %>
 </p>
 
-<%= link_to 'Edit', edit_member_path(@member) %> |
-<%= link_to 'Back', members_path %>
+<p>
+  <strong>Short Url:</strong>
+  <%= @member.short %>
+</p>
+<br>
+<p>
+  <strong>Topics:</strong>
+  <%= @member.headings %>
+</p>
+<br>
+<p>
+  <strong>Topics:</strong>
+  <%= @members %>
+</p>
