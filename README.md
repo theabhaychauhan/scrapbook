@@ -9,6 +9,7 @@
   <li> Install Ruby 2.7.0.</li>
   <li>  Bundle install </li>
   <li> rake db:migrate </li>
+  <li> visit: http://localhost:3000/ </li>
   </ul>
 
    
