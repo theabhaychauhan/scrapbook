@@ -8,15 +8,32 @@ class MembersController < ApplicationController
   def show
   end
 
+  def search
+    @result = Member.where("headings LIKE ?","%" + params[:q] + "%")
+    # getMutual()
+  end
+
   def new
     @member = Member.new
+  end
+
+  def getMutual
+    @friend = Array.new
+    @result.each do |res|
+      res.friendships.each do |friendship|
+        @friend << friendship.friend
+      end
+      @current_user.friendships.each do |friendship|
+        byebug
+        @friends << friendship.friend
+      end
+    end
   end
 
   def edit
   end
 
   def headers(url)
-
     doc = Nokogiri::HTML(RestClient.get(url))
     header_tags = (1..3).map { |num| "h#{num}" }
     headers = []
@@ -45,7 +62,13 @@ class MembersController < ApplicationController
 
   def update
     respond_to do |format|
+    headers(@member.short)
       if @member.update(member_params)
+        client = Bitly::API::Client.new(token: "796016fee064d7b96f06223589e913d28815c4e1")
+        bitlink = client.shorten(long_url: "https://" + @member.website)
+        @member.short = bitlink.link
+        headers(@member.short)
+        @member.save
         format.html { redirect_to @member, notice: 'Member was successfully updated.' }
         format.json { render :show, status: :ok, location: @member }
       else

@@ -1,11 +1,15 @@
 <p id="notice"><%= notice %></p>
+<%= render "layouts/header" %>
 <div>
-<h1 style="text-justify:tibetan; color:red;">
-  <%= link_to 'ScrapBook', members_path %>
-</h1>
+<form action="/search">
+  <input name="q" type="text" placeholder="Search" aria-label="Search">
+  <button type="submit">Search</button>
+</form>
 </div>
 <div style = "text-align:right">
 <%= link_to 'Edit User', edit_member_path(@member) %>
+<br>
+<td><%= link_to 'Remove User', @member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </div>
 <p>
   <strong>Name:</strong>
@@ -36,7 +40,7 @@
   <% @member.friendships.each do |friendship| %>
     <li>
       <%= friendship.friend.name %>
-       <%= link_to "remove", friendship_url(:member => current,:friendship => friendship), :method => :delete %>
+      <%= link_to "remove", friendship_url(:member => current,:friendship => friendship), :method => :delete %>
     </li>
   <% end %>
 </ul>
@@ -48,7 +52,7 @@
   <p>
     <%users = Member.all %>
     <% current = @member %>
-
+    <% @current_user = current %>
     <% users.each do |user| %>
       <% if (user.name != @member.name && !(@member.friends.all.map(&:name).include?(user.name))) %>
         <%= user.name %>
