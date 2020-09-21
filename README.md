@@ -1,4 +1,4 @@
-<strong>ScrapBook</strong>
+<h1>ScrapBook</h1>
   <ul>
       <li>ScrapBook is Ruby on Rails project which allows you to create Users, Add other users as friends, Search interest of other users based on the content they post on their website.</li>
       <li>Website's URL is shortened for each user.</li>
