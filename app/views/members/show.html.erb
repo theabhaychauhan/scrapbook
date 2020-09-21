@@ -12,6 +12,7 @@
   <%= @member.name %>
 </p>
 
+
 <p>
   <strong>Website:</strong>
   <%= @member.website %>
@@ -27,7 +28,33 @@
   <%= @member.headings %>
 </p>
 <br>
-<p>
-  <strong>Topics:</strong>
-  <%= @members %>
-</p>
+
+
+<h2>Friends</h2>
+<ul>
+  <% current = @member %>
+  <% @member.friendships.each do |friendship| %>
+    <li>
+      <%= friendship.friend.name %>
+       <%= link_to "remove", friendship_url(:member => current,:friendship => friendship), :method => :delete %>
+    </li>
+  <% end %>
+</ul>
+
+
+<br>
+
+<h2>Add New Friends</h2>
+  <p>
+    <%users = Member.all %>
+    <% current = @member %>
+
+    <% users.each do |user| %>
+      <% if (user.name != @member.name && !(@member.friends.all.map(&:name).include?(user.name))) %>
+        <%= user.name %>
+        <%= link_to "Add Friend", friendships_path(:friend_id => user , :member => current), :method => :post %>
+      <% end %>
+    <% end %>
+  </p>
+
+<br>
