@@ -1,24 +1,14 @@
-# README
+<strong>ScrapBook</strong>
+  <ul>
+      <li>ScrapBook is Ruby on Rails project which allows you to create Users, Add other users as friends, Search interest of other users based on the content they post on their website.</li>
+      <li>Website's URL is shortened for each user.</li>
+  </ul>
+  <br>
+<h2>Run :</h2>
+  <ul>
+  <li> Install Ruby 2.7.0.</li>
+  <li>  Bundle install </li>
+  <li> rake db:migrate </li>
+  </ul>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+   
