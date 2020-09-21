@@ -1,10 +1,40 @@
+<%= render "layouts/header" %>
 <h1>Search Results</h1>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+</style>
+<table>
   <tbody>
+    <tr>
+              <th>Member</th>
+              <th>Mutual Friend</th>
+              <th>Topic's Expert</th>
+          </tr>
     <% @result.each do |res| %>
         <tr>
+            <td><%= $mem.name %></td>
             
-            <td><%= res.name %></td>
+            <% if ($mutualFriend != "") %>
+              <td><%= $mutualFriend.name %></td>
+            <% else %>
+              <td>No mutual friend</td>
+            <% end %>
             <br>
+            <td><%= res.name %></td>
         </tr>
     <% end %>
   </tbody>

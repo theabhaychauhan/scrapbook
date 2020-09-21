@@ -1,6 +1,9 @@
-<h1>Editing Member</h1>
+<%= render "layouts/header" %>
+<center>
+    <h1>Editing Member</h1>
 
-<%= render 'form', member: @member %>
+    <%= render 'form', member: @member %>
 
-<%= link_to 'Show', @member %> |
-<%= link_to 'Back', members_path %>
+    <%= link_to 'Show', @member %> |
+    <%= link_to 'Back', members_path %>
+</center>

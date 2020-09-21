@@ -10,7 +10,8 @@ class MembersController < ApplicationController
 
   def search
     @result = Member.where("headings LIKE ?","%" + params[:q] + "%")
-    # getMutual()
+    @memb = $mem
+    getMutual()
   end
 
   def new
@@ -19,13 +20,21 @@ class MembersController < ApplicationController
 
   def getMutual
     @friend = Array.new
+    @friends = Array.new
     @result.each do |res|
       res.friendships.each do |friendship|
         @friend << friendship.friend
       end
-      @current_user.friendships.each do |friendship|
-        byebug
+      @memb.friendships.each do |friendship|
         @friends << friendship.friend
+      end
+    end
+    $mutualFriend = ""
+    for friend1 in @friend
+      for friend2 in @friends
+        if(friend1.id == friend2.id)
+          $mutualFriend = friend1
+        end
       end
     end
   end

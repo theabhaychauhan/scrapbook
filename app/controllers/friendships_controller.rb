@@ -1,6 +1,5 @@
 class FriendshipsController < ApplicationController
   def create
-    byebug
     member = Member.find_by(id: params["member"])
     @friendship = member.friendships.build(:friend_id => params[:friend_id])
     if @friendship.save

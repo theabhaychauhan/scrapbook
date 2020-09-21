@@ -1,38 +1,79 @@
 <p id="notice"><%= notice %></p>
 <%= render "layouts/header" %>
-<div>
-<form action="/search">
-  <input name="q" type="text" placeholder="Search" aria-label="Search">
-  <button type="submit">Search</button>
-</form>
-</div>
 <div style = "text-align:right">
 <%= link_to 'Edit User', edit_member_path(@member) %>
 <br>
 <td><%= link_to 'Remove User', @member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </div>
-<p>
+<center>
+  <div>
+  <form action="/search">
+    <input style="border: 2px solid #077971;
+                  border-radius: 30px;
+                  height: 32px;
+                  font-family: 'Nunito Sans', sans-serif;
+                  font-size: 15px;
+                  color: #3D3D3C;
+                  font-weight: 400;
+                  padding-left: 15px;
+                  padding-right: 20px;"
+              name="q" type="text" placeholder="Search Topic" aria-label="Search">
+    <button style="background-color: transparent;
+                    border-color: transparent;
+                    font-size: 18px;
+                    color: #01A093;
+                    position: relative;
+                    right: 44px;
+                    top: 1px;
+                    cursor: pointer;" 
+            type="submit">&#10132</button>
+  </form>
+  </div>
+</center>
+<br>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+<table>
+  <tr>
+    <th><p>
   <strong>Name:</strong>
   <%= @member.name %>
-</p>
-
-
-<p>
+</p></th>
+  </tr>
+  <tr>
+    <td><p>
   <strong>Website:</strong>
   <%= @member.website %>
-</p>
-
-<p>
+</p></td>
+  </tr>
+  <tr>
+    <td><p>
   <strong>Short Url:</strong>
   <%= @member.short %>
-</p>
-<br>
-<p>
+</p></td>
+  </tr>
+  <tr>
+    <td><p>
   <strong>Topics:</strong>
   <%= @member.headings %>
-</p>
-<br>
-
+</p></td>
+  </tr>
+</table>
 
 <h2>Friends</h2>
 <ul>
@@ -45,20 +86,29 @@
   <% end %>
 </ul>
 
-
 <br>
 
 <h2>Add New Friends</h2>
   <p>
     <%users = Member.all %>
     <% current = @member %>
-    <% @current_user = current %>
+    <div style="display:none">
+    <% 
+      def index
+        $mem = @member
+      end
+    %>
+    <%= index() %>
+    </div>
     <% users.each do |user| %>
       <% if (user.name != @member.name && !(@member.friends.all.map(&:name).include?(user.name))) %>
-        <%= user.name %>
-        <%= link_to "Add Friend", friendships_path(:friend_id => user , :member => current), :method => :post %>
+      <ul>
+        <li>
+          <%= user.name %>
+          <%= link_to "Add Friend", friendships_path(:friend_id => user , :member => current), :method => :post %>
+        </li>
+      </ul>
       <% end %>
     <% end %>
   </p>
-
 <br>

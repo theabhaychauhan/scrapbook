@@ -1,7 +1,27 @@
+<%= render "layouts/header" %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <p id="notice"><%= notice %></p>
-
+<strong>
+<%= link_to 'New Member', new_member_path %>
+<i class="fa fa-plus" aria-hidden="true"></i>
+</strong>
 <h1>Members</h1>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
 
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
 <table>
   <thead>
     <tr>
@@ -10,7 +30,6 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @members.each do |member| %>
       <tr>
@@ -24,5 +43,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Member', new_member_path %>
